@@ -127,9 +127,9 @@ void Reconnect(struct Link *net, int n, int i, int j)
 {
 	int ran;
 	DeleteLink(net, i, j);
-	ran = (int)(n*genrand_real1()); //[0,1]
+	ran = (int)(n*genrand_real2()); //[0,1)
 	while(YesOrNot(net, i, ran)) {
-		ran = (int)(n*genrand_real1());
+		ran = (int)(n*genrand_real2());
 	}
 	AddLink(net, i, ran);
 }
