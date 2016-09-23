@@ -166,23 +166,18 @@ void Lattice1D(struct Link *net, int n)
 	}
 }
 
-//take the square root of n equals length
+//take the square root of n equals l
 //periodic boundary condition
 void Lattice2D(struct Link *net, int n) 
 {
-	int i, length;
+	int i, j, l;
 	double size = (double)n;
-	length = sqrt(size);
-	printf("length: %d\n", length);
-	for(i = 0; i < n; i++) {
-		if(((i+1)%length) != 0)
-			AddLink(net, i, i+1);
-		else AddLink(net, i, i+1-length);
-	}
-	for(i = 0; i < n; i++) {
-		if((i+1+length) <= n)
-			AddLink(net, i, i+length);
-		else AddLink(net, i, i+length-n);
+	l = sqrt(size);
+	for(i = 0; i < l; i++) {
+		for(j = 0; j < l; j++) {
+			AddLink(net, i*l + j, i*l + (j + 1)%l);
+			AddLink(net, i*l + j, ((i + 1)%l)*l + j);
+		}
 	}
 }
 
