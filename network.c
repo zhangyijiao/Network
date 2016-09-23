@@ -99,7 +99,7 @@ void BA_Network(struct Link *net, int n, int m)
 				j++;
  			}
 		}
-		total_degree += 3;
+		total_degree += m;
 	}
 }
 
@@ -139,11 +139,12 @@ void Reconnect(struct Link *net, int n, int i, int j)
 //prob: reconnect probability 
 void SW_network(struct Link *net, int n, int r, double prob) 
 {
-	int i, neighbor;
+	int i, j, neighbor;
 	struct Link *p;
 	for(i = 0; i < n; i++) {
-		AddLink(net, i, (i+1)%n);
-		AddLink(net, i, (i+2)%n);
+		for(j = 0; j < r; j ++) {
+			AddLink(net, i, (i + j + 1)%n);
+		}
 	}
 	for(i = 0; i < n; i++) {
 		neighbor = (i+1)%n;
