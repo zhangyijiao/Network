@@ -101,6 +101,7 @@ void BA_Network(struct Link *net, int n, int m)
 		}
 		total_degree += m;
 	}
+	free(degree);
 }
 
 //if j == i or j is i's neighbor, return 1
@@ -142,19 +143,17 @@ void SW_network(struct Link *net, int n, int r, double prob)
 	int i, j, neighbor;
 	struct Link *p;
 	for(i = 0; i < n; i++) {
-		for(j = 0; j < r; j ++) {
+		for(j = 0; j < r; j++) {
 			AddLink(net, i, (i + j + 1)%n);
 		}
 	}
 	for(i = 0; i < n; i++) {
-		neighbor = (i+1)%n;
-		if(genrand_real3() < prob) {
+		for(j = 0; j < r; j++){
+			neighbor = (i+j+1)%n;
+			if(genrand_real3() < prob) {
 				Reconnect(net, n, i, neighbor);
 			}
-		neighbor = (i+2)%n;
-		if(genrand_real3() < prob) {
-				Reconnect(net, n, i, neighbor);
-			}
+		}
 	}
 }
 
