@@ -88,8 +88,8 @@ void BA_Network(struct Link *net, int n, int m)
 			}
 			p = &net[k];
 			while(p->next != NULL) {
+				if(p->next->num == i) break; //the chosen node can't be i's neighbor already
 				p = p->next;
-				if(p->num == i) break; //the chosen node can't be i's neighbor already
 			}
 			if(p->next == NULL) {
 				AddLink(net, i, k);
