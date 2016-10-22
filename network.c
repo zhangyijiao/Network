@@ -60,6 +60,33 @@ void ER_Network(struct Link *net, int n, double probability)
 	}
 }
 
+//k is average degree of the network
+void ER_Network2(struct Link *net, int n, int k)
+{
+	int i, node1, node2, total_link;
+	struct Link *p;
+	total_link = n*k/2;
+	i = 0;
+	while(i < total_link){
+		node1 = (int)(n*genrand_real3());
+		node2 = (int)(n*genrand_real3());
+		while(node2 == node1) {
+			node2 = (int)(n*genrand_real3());
+		}
+		p = &net[node1];
+		while(p->next != NULL) {
+			if(p->next->num == node2)  {
+				break;
+			}
+			p = p->next;
+		}
+		if(p->next == NULL) {
+			AddLink(net, node1, node2);
+			i++;
+		}
+	}
+}
+
 //each step add a new node with m links
 void BA_Network(struct Link *net, int n, int m)
 {
